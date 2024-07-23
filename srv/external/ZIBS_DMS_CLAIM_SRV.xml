@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZIBS_DMS_CLAIM_SRV" xml:lang="en" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+                <EntityType Name="CLMHEADER" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="CrNo"/>
+                    </Key>
+                    <Property Name="CrNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="DistributorId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="SapCreditNote" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <NavigationProperty Name="CLMHEADERTOITEM" Relationship="ZIBS_DMS_CLAIM_SRV.CLMHEADERTOITEM" FromRole="FromRole_CLMHEADERTOITEM" ToRole="ToRole_CLMHEADERTOITEM"/>
+                </EntityType>
+                <EntityType Name="CLMITEM" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="CrNo"/>
+                    </Key>
+                    <Property Name="CrNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ItemNo" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="InvoiceNo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ItemCode" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="SLED/BBD" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ReqQuantity" Type="Edm.Decimal" Nullable="false" Precision="13" Scale="3" sap:unicode="false" sap:label="Billed qty" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ReqAmount" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Net Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ReqRate" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Net Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <EntityType Name="INVOICEF4" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Kunnr"/>
+                    </Key>
+                    <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Vbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Fkdat" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Billing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Netwr" Type="Edm.Decimal" Nullable="false" Precision="16" Scale="3" sap:unicode="false" sap:label="Net Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Mwsbk" Type="Edm.Decimal" Nullable="false" Precision="14" Scale="3" sap:unicode="false" sap:label="Tax Amount" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Svbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Prno" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Cust. Reference" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <EntityType Name="INVOICEITEM" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Vbeln"/>
+                    </Key>
+                    <Property Name="Vbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="SD Document" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Posnr" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="Item" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Matnr" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Material" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Arktx" Type="Edm.String" MaxLength="40" sap:unicode="false" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Fkimg" Type="Edm.Decimal" Precision="13" Scale="3" sap:unicode="false" sap:label="Billed qty" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Meins" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Base Unit" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false" sap:semantics="unit-of-measure"/>
+                    <Property Name="Fkdat" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Billing Date" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Netwr" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:label="Net Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Charg" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Batch" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Vfdat" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="SLED/BBD" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Rate" Type="Edm.Decimal" Precision="16" Scale="3" sap:unicode="false" sap:label="Net Value" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Division" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Division" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Subdivision" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Sub Division" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <Association Name="CLMHEADERTOITEM" sap:content-version="1">
+                    <End Type="ZIBS_DMS_CLAIM_SRV.CLMHEADER" Multiplicity="1" Role="FromRole_CLMHEADERTOITEM"/>
+                    <End Type="ZIBS_DMS_CLAIM_SRV.CLMITEM" Multiplicity="*" Role="ToRole_CLMHEADERTOITEM"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_CLMHEADERTOITEM">
+                            <PropertyRef Name="CrNo"/>
+                        </Principal>
+                        <Dependent Role="ToRole_CLMHEADERTOITEM">
+                            <PropertyRef Name="CrNo"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <EntityContainer Name="ZIBS_DMS_CLAIM_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                    <EntitySet Name="CLMHEADERSet" EntityType="ZIBS_DMS_CLAIM_SRV.CLMHEADER" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="CLMITEMSet" EntityType="ZIBS_DMS_CLAIM_SRV.CLMITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="INVOICEF4Set" EntityType="ZIBS_DMS_CLAIM_SRV.INVOICEF4" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="INVOICEITEMSet" EntityType="ZIBS_DMS_CLAIM_SRV.INVOICEITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <AssociationSet Name="CLMHEADERTOITEMSet" Association="ZIBS_DMS_CLAIM_SRV.CLMHEADERTOITEM" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="CLMHEADERSet" Role="FromRole_CLMHEADERTOITEM"/>
+                        <End EntitySet="CLMITEMSet" Role="ToRole_CLMHEADERTOITEM"/>
+                    </AssociationSet>
+                </EntityContainer>
+                <atom:link rel="self" href="https://a19.c.hana.com:443/sap/opu/odata/sap/ZIBS_DMS_CLAIM_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                    <atom:link rel="latest-version" href="https://a19.c.hana.com:443/sap/opu/odata/sap/ZIBS_DMS_CLAIM_SRV/$metadata"
+                        xmlns:atom="http://www.w3.org/2005/Atom"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>

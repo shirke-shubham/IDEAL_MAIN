@@ -1,0 +1,101 @@
+PROCEDURE "REGFORM_REJECT_SENDBACK" (
+    IN IN_ACTION NVARCHAR(20),
+    IN REQUEST_NO BIGINT,
+    IN ENTITY_CODE NVARCHAR(100),
+    IN REQUEST_TYPE INTEGER,
+    IN REGISTERED_ID NVARCHAR(100),
+    IN USER_IDS NVARCHAR(100),
+    IN APPROVER_LEVEL INTEGER,
+    IN ST_REQUEST_EVENTS_LOG "ST_REQUEST_EVENTS_LOG",
+    
+    OUT OUT_SUCCESS NVARCHAR(100),
+    OUT OUT_EMAIL_TO NVARCHAR(100),
+    OUT OUT_ERROR_CODE BIGINT,
+    OUT OUT_ERROR_MESSAGE VARCHAR(1000) 
+)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   -- Local Variables:
+    DECLARE LV_CURR_TIMESTAMP TIMESTAMP;
+    DECLARE LV_STATUS INTEGER;
+   -- Event Values
+    DECLARE LV_EVENT_COUNT INTEGER;
+    DECLARE LV_EVENT_NO INTEGER;
+    DECLARE LV_EVENT_CODE INTEGER;
+    DECLARE LV_REMARK NVARCHAR(100); 
+    --Matrix Values
+    DECLARE LV_MAX_LEVEL INTEGER;
+    --Next Approver details
+    DECLARE LV_HIERARCHY_ID NVARCHAR(100);
+    DECLARE LV_NXT_APPROVER_ROLE NVARCHAR(50);
+    DECLARE LV_NXT_APPROVER_LEVEL INTEGER;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    RESIGNAL SET MESSAGE_TEXT = ::SQL_ERROR_MESSAGE;
+    
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    SELECT ::SQL_ERROR_CODE, ::SQL_ERROR_MESSAGE INTO OUT_ERROR_CODE,OUT_ERROR_MESSAGE FROM DUMMY;
+    OUT_ERROR_CODE := null;
+    OUT_ERROR_MESSAGE := null;
+ 
+    -- Local Variable values assigning
+    SELECT CURRENT_TIMESTAMP INTO LV_CURR_TIMESTAMP FROM DUMMY;
+
+   -- Get Count for new EVENT_NO
+    SELECT COUNT(*) into LV_EVENT_COUNT FROM "DEALER_PORTAL_REQUEST_EVENTS_LOG" 
+    WHERE "REQUEST_NO" = :REQUEST_NO;
+    
+    LV_EVENT_NO := LV_EVENT_COUNT + 1;
+    OUT_SUCCESS := null;
+    
+    -- LV_HIERARCHY_ID := null;
+    LV_NXT_APPROVER_LEVEL := null;
+    LV_NXT_APPROVER_ROLE := null;
+    
+    -- REJECT PROCESS--------------------------------------------------------------------
+    IF ( :IN_ACTION = 'reject' ) 
+        THEN
+        LV_EVENT_CODE := 6;
+        LV_STATUS := 8;
+        LV_REMARK := 'OBR Rejected by - ' || :USER_IDS;
+    ELSEIF ( :IN_ACTION = 'sendback' )
+     THEN
+        LV_EVENT_CODE := 7;
+        LV_STATUS := 7;
+        LV_REMARK := 'OBR Sent back by - ' || :USER_IDS;
+    END IF;
+       
+        -- 1) Update Main Table
+        UPDATE "DEALER_PORTAL_REQUEST_INFO"
+        SET "STATUS" = :LV_STATUS,
+        "APPROVER_ROLE" = :LV_NXT_APPROVER_ROLE,
+        "APPROVER_LEVEL" = :LV_NXT_APPROVER_LEVEL
+        -- "APPROVER_ROLE" = :LV_NXT_APPROVER_ROLE
+        WHERE "REQUEST_NO" = :REQUEST_NO;
+        
+    --2) Update Active Status Table    
+        UPDATE "DEALER_PORTAL_REQUEST_ACTIVE_STATUS"
+        SET "ACTIVE" = null,
+        "UPDATED_ON" = :LV_CURR_TIMESTAMP
+        WHERE "REQUEST_NO" = :REQUEST_NO;
+        
+    -- 4) Insert into Events Log:   
+        INSERT INTO "DEALER_PORTAL_REQUEST_EVENTS_LOG" 
+        (
+            "REQUEST_NO", "EVENT_NO", "EVENT_CODE", "USER_ID", "USER_NAME", "REMARK", "COMMENT", "EVENT_TYPE", "CREATED_ON"
+        )
+        SELECT :REQUEST_NO, :LV_EVENT_NO, "EVENT_CODE", "USER_ID", "USER_NAME", :LV_REMARK, "COMMENT", "EVENT_TYPE", :LV_CURR_TIMESTAMP
+        FROM :ST_REQUEST_EVENTS_LOG;
+ 
+         
+        OUT_SUCCESS := 'Request action ' || :IN_ACTION ||' against : ' || :REQUEST_NO || ' by ' || :USER_IDS || ' successful';
+        OUT_EMAIL_TO := :REGISTERED_ID;
+        COMMIT; 
+            
+    
+END

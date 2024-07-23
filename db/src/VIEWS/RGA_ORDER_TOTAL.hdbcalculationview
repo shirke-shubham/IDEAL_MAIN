@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="RGA_ORDER_TOTAL" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="RGA_ORDER_TOTAL.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_RGA_HEADER">
+    <resourceUri>DEALER_PORTAL_RGA_HEADER</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_RGA_ITEMS">
+    <resourceUri>DEALER_PORTAL_RGA_ITEMS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="RGA_NO" aggregationType="sum"/>
+      <viewAttribute id="DISTRIBUTOR_ID"/>
+      <viewAttribute id="STATUS" aggregationType="sum"/>
+      <viewAttribute id="ITEM_DESCRIPTION"/>
+      <viewAttribute id="ITEM_CODE"/>
+      <viewAttribute id="RETURN_QUANTITY" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$RGA_NO$RGA_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_RGA_HEADER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="RGA_NO" source="RGA_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DISTRIBUTOR_ID" source="DISTRIBUTOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$RGA_NO$RGA_NO" source="RGA_NO"/>
+    </input>
+    <input node="DEALER_PORTAL_RGA_ITEMS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_DESCRIPTION" source="ITEM_DESCRIPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ITEM_CODE" source="ITEM_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="RETURN_QUANTITY" source="RETURN_QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$RGA_NO$RGA_NO" source="RGA_NO"/>
+    </input>
+    <filter>&quot;STATUS&quot; = 3</filter>
+    <joinAttribute name="JOIN$RGA_NO$RGA_NO"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="DISTRIBUTOR_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DISTRIBUTOR_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="DISTRIBUTOR_ID"/>
+    </attribute>
+    <attribute id="ITEM_CODE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ITEM_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ITEM_CODE"/>
+    </attribute>
+    <attribute id="ITEM_DESCRIPTION" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ITEM_DESCRIPTION"/>
+      <keyMapping columnObjectName="Join_1" columnName="ITEM_DESCRIPTION"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="RGA_NO" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="RGA_NO"/>
+      <measureMapping columnObjectName="Join_1" columnName="RGA_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="RETURN_QUANTITY" order="5" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="RETURN_QUANTITY"/>
+      <measureMapping columnObjectName="Join_1" columnName="RETURN_QUANTITY"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="231"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_RGA_HEADER" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="17" y="31"/>
+      <rectangleSize width="259"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_RGA_ITEMS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="245"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

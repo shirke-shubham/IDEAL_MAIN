@@ -1,0 +1,100 @@
+PROCEDURE "GRN_ACCEPTANCE" (
+   
+   IN IN_ACTION NVARCHAR(15),
+   IN IN_APPTYPE NVARCHAR(15),
+   IN IN_INVOICE_NO NVARCHAR(15),
+   IN ST_GRN_HEADER "ST_GRN_HEADER",
+   IN ST_GRN_ITEMS "ST_GRN_ITEMS",
+   IN ST_GRN_EVENT_LOGS "ST_GRN_EVENT_LOGS",
+   OUT OUT_SUCCESS NVARCHAR(100)
+)     
+  LANGUAGE SQLSCRIPT 
+  SQL SECURITY INVOKER 
+  --DEFAULT SCHEMA <default_schema_name>
+  --  READS SQL DATA
+  AS 
+BEGIN 
+  DECLARE LV_COMMENT NVARCHAR(100);
+  DECLARE LV_EVENT_NO INTEGER;
+  DECLARE LV_CREATION_DATE DATE;
+  DECLARE LV_STATUS INTEGER;
+--   DECLARE LV_EXIST_STATUS INTEGER;
+  
+  /*************************************
+  Write your procedure logic
+  *************************************/
+  SELECT CURRENT_TIMESTAMP INTO LV_CREATION_DATE FROM DUMMY;
+ 
+   -- SELECT "STATUS" INTO LV_EXIST_STATUS FROM "DEALER_PORTAL_GRN_HEADER" WHERE "INVOICE_NO" = :IN_INVOICE_NO;
+   -- IF :LV_EXIST_STATUS = 2 THEN
+
+   -- ELSE
+      LV_STATUS:=2;
+
+      INSERT INTO "DEALER_PORTAL_GRN_HEADER" (
+        "DISTRIBUTOR_ID"  ,   
+        "DISTRIBUTOR_NAME","DELIVERY_NO"  ,"INVOICE_NO"    ,
+        "INVOICE_DATE"    ,"DELIVERY_DATE","ACCEPTED_DATE",        
+        "INVOICE_AMOUNT"  ,"STATUS"       ,
+        "SAP_ORDER_NO"
+     )
+     SELECT 
+        "DISTRIBUTOR_ID"  ,   
+        "DISTRIBUTOR_NAME", "DELIVERY_NO"  ,"INVOICE_NO"     ,
+        "INVOICE_DATE"    , "DELIVERY_DATE",:LV_CREATION_DATE,     
+        "INVOICE_AMOUNT"  , :LV_STATUS     ,
+        "SAP_ORDER_NO" 
+     FROM :ST_GRN_HEADER;
+     COMMIT;
+ 
+ 
+    INSERT INTO "DEALER_PORTAL_GRN_ITEMS" (
+ 
+       "INVOICE_NO"         ,"ITEM_NO", 
+       "MATERIAL_GROUP"     ,"MATERIAL_GROUP_DESC",
+       "MATERIAL_CODE"      ,"MATERIAL_DESC"      , "BATCH", "EXPIRY_DATE", "HSN_CODE",
+       "UNIT_OF_MEASURE"    ,"UNIT_PRICE"         , "OPENING_STOCK",
+       "QUANTITY"           ,"ACCEPTED_QUANTITY"  ,
+       "REJECTED_QUANTITY"  ,"CGST_PERC"          ,
+       "CGST_AMOUNT"        ,"SGST_PERC"          ,
+       "SGST_AMOUNT"        ,"IGST_PERC"          ,                                                                                                                         
+       "IGST_AMOUNT"        ,"TAX_AMOUNT"         ,
+       "TOTAL_AMOUNT"    
+    
+   )
+     SELECT 
+     "INVOICE_NO"         ,"ITEM_NO", 
+     "MATERIAL_GROUP"     ,"MATERIAL_GROUP_DESC" ,
+     "MATERIAL_CODE"      ,"MATERIAL_DESC"       , "BATCH", "EXPIRY_DATE","HSN_CODE",
+     "UNIT_OF_MEASURE"    ,"UNIT_PRICE"          , "OPENING_STOCK",
+     "QUANTITY"           ,"ACCEPTED_QUANTITY"   ,
+     "REJECTED_QUANTITY"  ,"CGST_PERC"           ,
+     "CGST_AMOUNT"        ,"SGST_PERC"           ,
+     "SGST_AMOUNT"        ,"IGST_PERC"           ,                                                                                                                         
+     "IGST_AMOUNT"        ,"TAX_AMOUNT"          ,
+     "TOTAL_AMOUNT"    
+     FROM :ST_GRN_ITEMS;
+     COMMIT;
+ 
+     LV_COMMENT:= 'Accepted By Distributor';
+     LV_EVENT_NO:= 1;
+ 
+ 
+    INSERT INTO "DEALER_PORTAL_GRN_EVENT_LOGS" (
+ 
+        "INVOICE_NO"     , "EVENT_NO"  ,
+        "USER_ID"        , "USER_NAME" ,
+        "USER_ROLE"      , "COMMENT"   ,
+        "CREATED_ON"
+  )
+    SELECT 
+        "INVOICE_NO"     , :LV_EVENT_NO  ,
+        "USER_ID"        , "USER_NAME"   ,
+        "USER_ROLE"      , :LV_COMMENT   ,
+        :LV_CREATION_DATE
+     FROM :ST_GRN_EVENT_LOGS;
+ 
+    COMMIT;
+    OUT_SUCCESS := 'GRN Accepted Successfully :' || :IN_INVOICE_NO;
+
+END;

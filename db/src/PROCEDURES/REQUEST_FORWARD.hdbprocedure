@@ -1,0 +1,106 @@
+PROCEDURE "REQUEST_FORWARD" (
+    IN USER_ID NVARCHAR(100),
+	IN CURR_APPROVER_ID NVARCHAR(100),
+	IN REASSIGN_TO_ID NVARCHAR(100),
+	-- IN ST_REQUEST_INFO "ST_DEALER_INVITE",
+    IN ST_REQUEST_INFO "ST_REQUEST_INFO",
+    -- IN ST_EVENTS "ST_REGISTERATION_EVENT_COMMENTS",
+    IN ST_REQUEST_EVENTS_LOG "ST_REQUEST_EVENTS_LOG",
+	
+	OUT OUT_SUCCESS NVARCHAR(100),
+	OUT OUT_EMAIL_TO NVARCHAR(100)
+)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   -- Local Variables:
+	DECLARE LV_CURR_TIMESTAMP TIMESTAMP;
+	DECLARE LV_STATUS INTEGER;
+	-- Loop Variables:
+	DECLARE LV_INV_REQUEST_NO BIGINT;
+	DECLARE LV_INV_STATUS INTEGER;
+	DECLARE LV_REQUEST_TYPE INTEGER;
+	
+	DECLARE LV_INDEX INTEGER;
+	DECLARE LV_REQCOUNT INTEGER;
+	DECLARE LV_REQ_STRING NVARCHAR(10);
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+		RESIGNAL SET MESSAGE_TEXT = ::SQL_ERROR_MESSAGE;     
+
+    -- SELECT * FROM "VENDOR_PORTAL_REQUEST_EVENTS_LOG"    
+	-- WHERE "REQUEST_NO" = 'HELLO'; 
+	
+	-- Local Variable values assigning
+    SELECT CURRENT_TIMESTAMP INTO LV_CURR_TIMESTAMP FROM DUMMY;
+    
+    
+    LV_INDEX := 0; -- Initial position of iteration
+    SELECT COUNT(*) into LV_REQCOUNT FROM :ST_REQUEST_INFO; -- Last position of iteration
+    
+    -- Start of While loop
+    WHILE LV_INDEX < LV_REQCOUNT DO
+    
+        SELECT "REQUEST_NO", "STATUS" , "REQUEST_TYPE"
+	    INTO LV_INV_REQUEST_NO, LV_INV_STATUS , LV_REQUEST_TYPE
+	    FROM :ST_REQUEST_INFO ORDER BY "REQUEST_NO" ASC LIMIT 1 OFFSET :LV_INDEX;
+	    
+	    IF :LV_INV_STATUS = 1 
+    	    THEN
+    	        -- UPDATE "DEALER_PORTAL_REQUEST_INFO"
+                -- SET 
+                -- "NEXT_APPROVER" = :REASSIGN_TO_ID
+                -- WHERE "REQUEST_NO" = :LV_INV_REQUEST_NO;
+	    
+	    ELSEIF :LV_INV_STATUS = 5 AND :LV_REQUEST_TYPE = 7
+    	    THEN
+    	        -- UPDATE "DEALER_PORTAL_REQUEST_INFO"
+                -- SET 
+                -- "REQUESTER_ID" = :REASSIGN_TO_ID,
+                -- "NEXT_APPROVER" = :REASSIGN_TO_ID
+                -- WHERE "REQUEST_NO" = :LV_INV_REQUEST_NO;  
+                
+         ELSEIF :LV_INV_STATUS = 6 OR :LV_INV_STATUS = 9 OR :LV_INV_STATUS = 13
+            THEN
+                -- UPDATE "DEALER_PORTAL_REQUEST_INFO"
+                -- SET 
+                --  "NEXT_APPROVER" = REASSIGN_TO_ID
+                -- WHERE "REQUEST_NO" = :LV_INV_REQUEST_NO;
+	    
+	    END IF;
+	    
+	    -- Insert into Events Log:	
+	    INSERT INTO "DEALER_PORTAL_REQUEST_EVENTS_LOG" 
+    	(
+    		"REQUEST_NO", "EVENT_NO", "EVENT_CODE", "USER_ID", "USER_NAME", "REMARK", "COMMENT", "EVENT_TYPE", "CREATED_ON"
+    	)
+    	SELECT "REQUEST_NO", "EVENT_NO", "EVENT_CODE", "USER_ID", "USER_NAME", "REMARK", "COMMENT", "EVENT_TYPE", :LV_CURR_TIMESTAMP
+    	FROM :ST_REQUEST_EVENTS_LOG
+    	WHERE "REQUEST_NO" = :LV_INV_REQUEST_NO;
+	    
+    COMMIT;	
+     LV_INDEX = LV_INDEX + 1;
+    END WHILE;
+    -- End of While loop
+    
+    IF :LV_REQCOUNT = 1
+    THEN
+        LV_REQ_STRING := ' Request';
+    ELSE
+        LV_REQ_STRING := ' Requests';
+    END IF;
+	    
+	 
+	IF :CURR_APPROVER_ID IS NULL or :CURR_APPROVER_ID = ''
+    THEN 
+    OUT_SUCCESS :=  LV_REQ_STRING || ' re-assigned to ' || :REASSIGN_TO_ID; 
+    ELSE 
+        OUT_SUCCESS :=  LV_REQ_STRING || ' re-assigned from ' || :CURR_APPROVER_ID || ' to ' || :REASSIGN_TO_ID; 
+    END IF;
+    
+END

@@ -1,0 +1,46 @@
+PROCEDURE "CREDIT_DEBIT_TX" (
+   
+   IN ST_CREDIT_DEBIT_TX "ST_CREDIT_DEBIT_TRANSACTION",
+   IN IN_TRANSACTION_TYPE NVARCHAR(20),
+   IN IN_REFERENCE_INVOICE NVARCHAR(15),
+   OUT OUT_SUCCESS NVARCHAR(100)
+)     
+  LANGUAGE SQLSCRIPT 
+  SQL SECURITY INVOKER 
+  --DEFAULT SCHEMA <default_schema_name>  
+  --  READS SQL DATA
+  AS 
+BEGIN  
+  DECLARE LV_CREATION_TIME TIMESTAMP;
+  DECLARE LV_TX_ID BIGINT;
+
+  /*************************************
+  Write your procedure logic
+  *************************************/
+  SELECT "TX_ID".NEXTVAL INTO LV_TX_ID FROM DUMMY;
+
+  SELECT CURRENT_TIMESTAMP INTO LV_CREATION_TIME FROM DUMMY;
+
+      INSERT INTO "DEALER_PORTAL_CREDIT_DEBIT_TRANSACTION" (
+          
+      "DISTRIBUTOR_ID",          "RETAILER_ID",
+      "TX_ID",                   "TRANSACTION_TYPE",
+      "POSTING_DATE",            "REFERENCE_INVOICE",
+      "INVOICE_AMOUNT",          "REFERENCE_TEXT",
+      "AMOUNT",                  "TAX_AMOUNT",
+      "TOTAL_AMOUNT",            "CREATED_ON"
+   )
+    SELECT        
+      "DISTRIBUTOR_ID",          "RETAILER_ID",
+      :LV_TX_ID,                 "TRANSACTION_TYPE",
+      "POSTING_DATE",            "REFERENCE_INVOICE",
+      "INVOICE_AMOUNT",          "REFERENCE_TEXT",
+      "AMOUNT",                  "TAX_AMOUNT",
+      "TOTAL_AMOUNT",            :LV_CREATION_TIME
+    FROM :ST_CREDIT_DEBIT_TX;
+
+   COMMIT; 
+   OUT_SUCCESS := :IN_TRANSACTION_TYPE || ' for Invoice ' || :IN_REFERENCE_INVOICE || ' is generated successfully';
+
+ 
+END;

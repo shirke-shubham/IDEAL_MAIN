@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="APPROVAL_PENDING" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="APPROVAL_PENDING.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_REQUEST_INFO">
+    <resourceUri>DEALER_PORTAL_REQUEST_INFO</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_MASTER_STATUS">
+    <resourceUri>DEALER_PORTAL_MASTER_STATUS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="REQUEST_NO" aggregationType="sum"/>
+      <viewAttribute id="STATUS" aggregationType="sum"/>
+      <viewAttribute id="CODE" aggregationType="sum"/>
+      <viewAttribute id="DESCRIPTION"/>
+      <viewAttribute hidden="true" id="JOIN$STATUS$CODE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_REQUEST_INFO">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STATUS$CODE" source="STATUS"/>
+    </input>
+    <input node="DEALER_PORTAL_MASTER_STATUS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STATUS$CODE" source="CODE"/>
+    </input>
+    <filter>&quot;STATUS&quot;=1 or &quot;STATUS&quot;=15 or &quot;STATUS&quot;=6 or &quot;STATUS&quot;=9 or &quot;STATUS&quot;=10</filter>
+    <joinAttribute name="JOIN$STATUS$CODE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes/>
+  <calculatedAttributes>
+    <calculatedAttribute id="APPR_PENDING" order="3" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="50">
+        <formula>if((&quot;STATUS&quot;=1) or (&quot;STATUS&quot;=15),'Request Approval','Registration Approval')</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures>
+    <measure id="REQUEST_NO" order="1" aggregationType="count" measureType="simple">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <measureMapping columnObjectName="Join_1" columnName="REQUEST_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="STATUS" order="2" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="STATUS"/>
+      <measureMapping columnObjectName="Join_1" columnName="STATUS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="216"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_REQUEST_INFO" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="268"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_MASTER_STATUS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="278"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZMDG_CUSTOMER_REG_SRV" xml:lang="en" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <Annotation Term="Core.SchemaVersion" String="1.0.0"
+                xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+                <EntityType Name="BankDetails" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Kunnr"/>
+                        <PropertyRef Name="BankID"/>
+                    </Key>
+                    <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="BankID" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Bank ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Banks" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Bank Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="IBAN" Type="Edm.String" Nullable="false" MaxLength="34" sap:unicode="false" sap:label="IBAN (International Bank Account Number)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Bankl" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Bank Key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Bankn" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Bank Account" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Bkont" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Control key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Xezer" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Collect.author." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Bkref" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Reference" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Koinh" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Account holder" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="EbppAccname" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Account Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <EntityType Name="CompanyData" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Kunnr"/>
+                        <PropertyRef Name="Bukrs"/>
+                    </Key>
+                    <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Company Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <EntityType Name="ContactPerson" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="PartnerID"/>
+                        <PropertyRef Name="Kunnr"/>
+                    </Key>
+                    <Property Name="PartnerID" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Partner ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Name1" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Designation" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Designation" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Name2" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Name2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Street" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Street" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="HouseNum1" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="City1" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="State" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="State(Region)" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="PoBox" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="PO Box" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="PostalCode" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="TelephoneNumber" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Telephone Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Mobile" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Mobile" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="EmailID" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="Email ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <EntityType Name="GeneralData" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Kunnr"/>
+                    </Key>
+                    <Property Name="REPRF" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Check Flag for Double Invoices or Credit Memos" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ZTERM" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Terms of payment key" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ZUAWA" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Key for sorting" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="AKONT" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Reconciliation Account in General Ledger" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Land1" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Name1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Name2" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Name 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Ort01" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="City" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Ort02" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="District" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Pfach" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="PO Box" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Pstlz" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Postal Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Regio" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Region" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Sortl" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Search term" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Stras" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Street" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="STR_SUPPL1" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Street 2" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="STR_SUPPL2" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Street 3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="STR_SUPPL3" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Street 4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Anred" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Title" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="HouseNum" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="House Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Telephone1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Default Telephone" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Telephone2" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Additional Telephone" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Mobile1" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Default Mobile" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Mobile2" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Additional Mobile" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Fax1" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Default Fax" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Fax2" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Additional Fax" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Email1" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="Default Email" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Email2" Type="Edm.String" Nullable="false" MaxLength="500" sap:unicode="false" sap:label="Additional Email" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Sperr" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Central Posting Block" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Sperm" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Purchasing Block" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Partner" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="BusinessPartner" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ID Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Idnumber" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="ID number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Scenario" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Scenario" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="BP_Type" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="BP Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="VAT_RegNo" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="VAT Registration" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="ChangeRequest" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Change Request Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Customer" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <NavigationProperty Name="BankDetailsSet" Relationship="ZMDG_CUSTOMER_REG_SRV.GeneralData_BankDetails" FromRole="FromRole_GeneralData_BankDetails" ToRole="ToRole_GeneralData_BankDetails"/>
+                    <NavigationProperty Name="ContactPersonSet" Relationship="ZMDG_CUSTOMER_REG_SRV.GeneralData_ContactPerson" FromRole="FromRole_GeneralData_ContactPerson" ToRole="ToRole_GeneralData_ContactPerson"/>
+                    <NavigationProperty Name="CompanyDataSet" Relationship="ZMDG_CUSTOMER_REG_SRV.GeneralData_CompanyData" FromRole="FromRole_GeneralData_CompanyData" ToRole="ToRole_GeneralData_CompanyData"/>
+                </EntityType>
+                <EntityType Name="Identification" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Partner"/>
+                    </Key>
+                    <Property Name="Partner" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="BusinessPartner" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="6" sap:unicode="false" sap:label="ID Type" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Idnumber" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="ID Number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <Association Name="GeneralData_CompanyData" sap:content-version="1">
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.GeneralData" Multiplicity="0..1" Role="FromRole_GeneralData_CompanyData"/>
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.CompanyData" Multiplicity="*" Role="ToRole_GeneralData_CompanyData"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_GeneralData_CompanyData">
+                            <PropertyRef Name="Kunnr"/>
+                        </Principal>
+                        <Dependent Role="ToRole_GeneralData_CompanyData">
+                            <PropertyRef Name="Kunnr"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="GeneralData_ContactPerson" sap:content-version="1">
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.GeneralData" Multiplicity="0..1" Role="FromRole_GeneralData_ContactPerson"/>
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.ContactPerson" Multiplicity="*" Role="ToRole_GeneralData_ContactPerson"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_GeneralData_ContactPerson">
+                            <PropertyRef Name="Kunnr"/>
+                        </Principal>
+                        <Dependent Role="ToRole_GeneralData_ContactPerson">
+                            <PropertyRef Name="Kunnr"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="GeneralData_BankDetails" sap:content-version="1">
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.GeneralData" Multiplicity="0..1" Role="FromRole_GeneralData_BankDetails"/>
+                    <End Type="ZMDG_CUSTOMER_REG_SRV.BankDetails" Multiplicity="*" Role="ToRole_GeneralData_BankDetails"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_GeneralData_BankDetails">
+                            <PropertyRef Name="Kunnr"/>
+                        </Principal>
+                        <Dependent Role="ToRole_GeneralData_BankDetails">
+                            <PropertyRef Name="Kunnr"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <EntityContainer Name="ZMDG_CUSTOMER_REG_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                    <EntitySet Name="BankDetailsSet" EntityType="ZMDG_CUSTOMER_REG_SRV.BankDetails" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="CompanyDataSet" EntityType="ZMDG_CUSTOMER_REG_SRV.CompanyData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="ContactPersonSet" EntityType="ZMDG_CUSTOMER_REG_SRV.ContactPerson" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="GeneralDataSet" EntityType="ZMDG_CUSTOMER_REG_SRV.GeneralData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="IdentificationSet" EntityType="ZMDG_CUSTOMER_REG_SRV.Identification" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                    <AssociationSet Name="GeneralData_CompanyDataSet" Association="ZMDG_CUSTOMER_REG_SRV.GeneralData_CompanyData" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="GeneralDataSet" Role="FromRole_GeneralData_CompanyData"/>
+                        <End EntitySet="CompanyDataSet" Role="ToRole_GeneralData_CompanyData"/>
+                    </AssociationSet>
+                    <AssociationSet Name="GeneralData_ContactPersonSet" Association="ZMDG_CUSTOMER_REG_SRV.GeneralData_ContactPerson" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="GeneralDataSet" Role="FromRole_GeneralData_ContactPerson"/>
+                        <End EntitySet="ContactPersonSet" Role="ToRole_GeneralData_ContactPerson"/>
+                    </AssociationSet>
+                    <AssociationSet Name="GeneralData_BankDetailsSet" Association="ZMDG_CUSTOMER_REG_SRV.GeneralData_BankDetails" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="GeneralDataSet" Role="FromRole_GeneralData_BankDetails"/>
+                        <End EntitySet="BankDetailsSet" Role="ToRole_GeneralData_BankDetails"/>
+                    </AssociationSet>
+                </EntityContainer>
+                <atom:link rel="self" href="https://portal.intellectbizware.com:85/sap/opu/odata/sap/ZMDG_CUSTOMER_REG_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                    <atom:link rel="latest-version" href="https://portal.intellectbizware.com:85/sap/opu/odata/sap/ZMDG_CUSTOMER_REG_SRV/$metadata"
+                        xmlns:atom="http://www.w3.org/2005/Atom"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>

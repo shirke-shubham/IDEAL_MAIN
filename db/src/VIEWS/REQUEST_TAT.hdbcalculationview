@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="REQUEST_TAT" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="REQUEST_TAT.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="REQ_TURNAROUND">
+    <resourceUri>REQ_TURNAROUND</resourceUri>
+  </DataSource>
+  <DataSource id="Projection_2$$$$REQ_TURNAROUND$$">
+    <resourceUri>REQ_TURNAROUND</resourceUri>
+  </DataSource>
+  <DataSource id="Projection_3$$$$REQ_TURNAROUND$$">
+    <resourceUri>REQ_TURNAROUND</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="UNIT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="STAGE" datatype="NVARCHAR" length="50" expressionLanguage="SQL">
+        <formula>'Invite Sent'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="REQ_TURNAROUND"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+      <viewAttribute id="UNIT"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="STAGE" datatype="NVARCHAR" length="50" expressionLanguage="SQL">
+        <formula>'Form Submission'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Projection_2$$$$REQ_TURNAROUND$$"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+      <viewAttribute id="UNIT"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="STAGE" datatype="NVARCHAR" length="50" expressionLanguage="SQL">
+        <formula>'Final Approval'</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Projection_3$$$$REQ_TURNAROUND$$"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="fullOuter">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="UNIT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+      <viewAttribute id="STAGE"/>
+      <viewAttribute id="CREATE_INV_TAT_1"/>
+      <viewAttribute id="INV_FS_TAT_1"/>
+      <viewAttribute id="FS_FA_TAT_1"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN_1"/>
+      <viewAttribute id="INV_FS_TAT_MIN_1"/>
+      <viewAttribute id="FS_FA_TAT_MIN_1"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS_1"/>
+      <viewAttribute id="INV_FS_TAT_HRS_1"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS_1"/>
+      <viewAttribute id="FS_FA_TAT_HRS_1"/>
+      <viewAttribute id="INV_FS_TAT_DAYS_1"/>
+      <viewAttribute id="FS_FA_TAT_DAYS_1"/>
+      <viewAttribute id="UNIT_1"/>
+      <viewAttribute id="STAGE_1"/>
+      <viewAttribute hidden="true" id="JOIN$STAGE$STAGE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT" source="CREATE_INV_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT" source="INV_FS_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT" source="FS_FA_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT" source="UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_MIN" source="CREATE_INV_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_MIN" source="INV_FS_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_MIN" source="FS_FA_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_HRS" source="CREATE_INV_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_HRS" source="INV_FS_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_HRS" source="FS_FA_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_DAYS" source="CREATE_INV_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_DAYS" source="INV_FS_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_DAYS" source="FS_FA_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STAGE" source="STAGE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STAGE$STAGE" source="STAGE"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_1" source="CREATE_INV_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_1" source="INV_FS_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_1" source="FS_FA_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_MIN_1" source="CREATE_INV_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_MIN_1" source="INV_FS_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_MIN_1" source="FS_FA_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_HRS_1" source="CREATE_INV_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_HRS_1" source="INV_FS_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_DAYS_1" source="CREATE_INV_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_HRS_1" source="FS_FA_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_DAYS_1" source="INV_FS_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_DAYS_1" source="FS_FA_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT_1" source="UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STAGE_1" source="STAGE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STAGE$STAGE" source="STAGE"/>
+    </input>
+    <joinAttribute name="JOIN$STAGE$STAGE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_N" joinType="fullOuter">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="UNIT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+      <viewAttribute id="STAGE"/>
+      <viewAttribute id="CREATE_INV_TAT_1"/>
+      <viewAttribute id="INV_FS_TAT_1"/>
+      <viewAttribute id="FS_FA_TAT_1"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN_1"/>
+      <viewAttribute id="INV_FS_TAT_MIN_1"/>
+      <viewAttribute id="FS_FA_TAT_MIN_1"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS_1"/>
+      <viewAttribute id="INV_FS_TAT_HRS_1"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS_1"/>
+      <viewAttribute id="FS_FA_TAT_HRS_1"/>
+      <viewAttribute id="INV_FS_TAT_DAYS_1"/>
+      <viewAttribute id="FS_FA_TAT_DAYS_1"/>
+      <viewAttribute id="UNIT_1"/>
+      <viewAttribute id="STAGE_1"/>
+      <viewAttribute id="CREATE_INV_TAT_2"/>
+      <viewAttribute id="INV_FS_TAT_2"/>
+      <viewAttribute id="FS_FA_TAT_2"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN_2"/>
+      <viewAttribute id="INV_FS_TAT_MIN_2"/>
+      <viewAttribute id="FS_FA_TAT_MIN_2"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS_2"/>
+      <viewAttribute id="INV_FS_TAT_HRS_2"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS_2"/>
+      <viewAttribute id="FS_FA_TAT_HRS_2"/>
+      <viewAttribute id="INV_FS_TAT_DAYS_2"/>
+      <viewAttribute id="FS_FA_TAT_DAYS_2"/>
+      <viewAttribute id="UNIT_2"/>
+      <viewAttribute id="STAGE_2"/>
+      <viewAttribute hidden="true" id="JOIN$STAGE$STAGE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT" source="CREATE_INV_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT" source="INV_FS_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT" source="FS_FA_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT" source="UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_MIN" source="CREATE_INV_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_MIN" source="INV_FS_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_MIN" source="FS_FA_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_HRS" source="CREATE_INV_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_HRS" source="INV_FS_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_HRS" source="FS_FA_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_DAYS" source="CREATE_INV_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_DAYS" source="INV_FS_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_DAYS" source="FS_FA_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STAGE" source="STAGE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_1" source="CREATE_INV_TAT_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_1" source="INV_FS_TAT_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_1" source="FS_FA_TAT_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_MIN_1" source="CREATE_INV_TAT_MIN_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_MIN_1" source="INV_FS_TAT_MIN_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_MIN_1" source="FS_FA_TAT_MIN_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_HRS_1" source="CREATE_INV_TAT_HRS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_HRS_1" source="INV_FS_TAT_HRS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_DAYS_1" source="CREATE_INV_TAT_DAYS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_HRS_1" source="FS_FA_TAT_HRS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_DAYS_1" source="INV_FS_TAT_DAYS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_DAYS_1" source="FS_FA_TAT_DAYS_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT_1" source="UNIT_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STAGE_1" source="STAGE_1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STAGE$STAGE" source="STAGE"/>
+    </input>
+    <input node="Projection_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_2" source="CREATE_INV_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_2" source="INV_FS_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_2" source="FS_FA_TAT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_MIN_2" source="CREATE_INV_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_MIN_2" source="INV_FS_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_MIN_2" source="FS_FA_TAT_MIN"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_HRS_2" source="CREATE_INV_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_HRS_2" source="INV_FS_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATE_INV_TAT_DAYS_2" source="CREATE_INV_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_HRS_2" source="FS_FA_TAT_HRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="INV_FS_TAT_DAYS_2" source="INV_FS_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FS_FA_TAT_DAYS_2" source="FS_FA_TAT_DAYS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNIT_2" source="UNIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STAGE_2" source="STAGE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$STAGE$STAGE" source="STAGE"/>
+    </input>
+    <joinAttribute name="JOIN$STAGE$STAGE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="CREATE_INV_TAT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT"/>
+    </attribute>
+    <attribute id="INV_FS_TAT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT"/>
+    </attribute>
+    <attribute id="FS_FA_TAT" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT"/>
+    </attribute>
+    <attribute id="UNIT" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNIT"/>
+      <keyMapping columnObjectName="Join_2" columnName="UNIT"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_MIN" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_MIN"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_MIN" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_MIN"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_MIN" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_MIN"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_HRS" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_HRS"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_HRS" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_HRS"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_HRS" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_HRS"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_DAYS" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_DAYS"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_DAYS" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_DAYS"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_DAYS" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_DAYS"/>
+    </attribute>
+    <attribute id="STAGE" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STAGE"/>
+      <keyMapping columnObjectName="Join_2" columnName="STAGE"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_1" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_1"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_1" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_1"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_1" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_1"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_MIN_1" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_MIN_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_MIN_1"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_MIN_1" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_MIN_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_MIN_1"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_MIN_1" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_MIN_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_MIN_1"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_HRS_1" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_HRS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_HRS_1"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_HRS_1" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_HRS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_HRS_1"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_DAYS_1" order="23" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_DAYS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_DAYS_1"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_HRS_1" order="24" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_HRS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_HRS_1"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_DAYS_1" order="25" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_DAYS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_DAYS_1"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_DAYS_1" order="26" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_DAYS_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_DAYS_1"/>
+    </attribute>
+    <attribute id="UNIT_1" order="27" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNIT_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="UNIT_1"/>
+    </attribute>
+    <attribute id="STAGE_1" order="28" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STAGE_1"/>
+      <keyMapping columnObjectName="Join_2" columnName="STAGE_1"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_2" order="29" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_2"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_2" order="30" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_2"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_2" order="31" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_2"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_MIN_2" order="32" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_MIN_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_MIN_2"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_MIN_2" order="33" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_MIN_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_MIN_2"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_MIN_2" order="34" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_MIN_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_MIN_2"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_HRS_2" order="35" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_HRS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_HRS_2"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_HRS_2" order="36" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_HRS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_HRS_2"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_DAYS_2" order="37" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_DAYS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_DAYS_2"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_HRS_2" order="38" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_HRS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_HRS_2"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_DAYS_2" order="39" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_DAYS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_DAYS_2"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_DAYS_2" order="40" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_DAYS_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_DAYS_2"/>
+    </attribute>
+    <attribute id="UNIT_2" order="41" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNIT_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="UNIT_2"/>
+    </attribute>
+    <attribute id="STAGE_2" order="42" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STAGE_2"/>
+      <keyMapping columnObjectName="Join_2" columnName="STAGE_2"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="AVG_TAT_SEC" order="43" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="16" scale="6">
+        <formula>if(isnull(&quot;CREATE_INV_TAT&quot;),if(isnull(&quot;INV_FS_TAT_1&quot;),if(isnull(&quot;FS_FA_TAT_2&quot;),0,&quot;FS_FA_TAT_2&quot;),&quot;INV_FS_TAT_1&quot;),&quot;CREATE_INV_TAT&quot;)</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+    <calculatedAttribute id="PROGRESS" order="44" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="COLUMN_ENGINE" length="50">
+        <formula>if(isNull(&quot;STAGE_2&quot;),if(isNull(&quot;STAGE_1&quot;),if(isNull(&quot;STAGE&quot;),'NA',&quot;STAGE&quot;),&quot;STAGE_1&quot;),&quot;STAGE_2&quot;)
+
+</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+    <calculatedAttribute id="AVG_TAT_MIN" order="45" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="16" scale="6">
+        <formula>if(isnull(&quot;CREATE_INV_TAT_MIN&quot;),if(isnull(&quot;INV_FS_TAT_MIN_1&quot;),if(isnull(&quot;FS_FA_TAT_MIN_2&quot;),0,&quot;FS_FA_TAT_MIN_2&quot;),&quot;INV_FS_TAT_MIN_1&quot;),&quot;CREATE_INV_TAT_MIN&quot;)</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+    <calculatedAttribute id="AVG_TAT_HRS" order="46" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="16" scale="6">
+        <formula>if(isnull(&quot;CREATE_INV_TAT_HRS&quot;),if(isnull(&quot;INV_FS_TAT_HRS_1&quot;),if(isnull(&quot;FS_FA_TAT_HRS_2&quot;),0,&quot;FS_FA_TAT_HRS_2&quot;),&quot;INV_FS_TAT_HRS_1&quot;),&quot;CREATE_INV_TAT_HRS&quot;)</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+    <calculatedAttribute id="AVG_TAT_DAYS" order="47" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="16" scale="6">
+        <formula>if(isnull(&quot;CREATE_INV_TAT_DAYS&quot;),if(isnull(&quot;INV_FS_TAT_DAYS_1&quot;),if(isnull(&quot;FS_FA_TAT_DAYS_2&quot;),0,&quot;FS_FA_TAT_DAYS_2&quot;),&quot;INV_FS_TAT_DAYS_1&quot;),&quot;CREATE_INV_TAT_DAYS&quot;)</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="328" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="395" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="118" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="328" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="Projection_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

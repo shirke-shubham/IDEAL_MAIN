@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="VIEW_TURN_AROUND_TIME" applyPrivilegeType="NONE" dataCategory="DIMENSION" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="VIEW_TURN_AROUND_TIME"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_REQUEST_EVENTS_LOG">
+    <resourceUri>DEALER_PORTAL_REQUEST_EVENTS_LOG</resourceUri>
+  </DataSource>
+  <DataSource id="REQ_INV$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+    <resourceUri>DEALER_PORTAL_REQUEST_EVENTS_LOG</resourceUri>
+  </DataSource>
+  <DataSource id="FORM_SUB$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+    <resourceUri>DEALER_PORTAL_REQUEST_EVENTS_LOG</resourceUri>
+  </DataSource>
+  <DataSource id="FINAL_APPR$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+    <resourceUri>DEALER_PORTAL_REQUEST_EVENTS_LOG</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:AggregationView" id="REQ_CREATE" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="REQ_CREATE_EVENT_NO" aggregationType="max"/>
+      <viewAttribute id="REQ_CREATE_EVENT_CODE"/>
+      <viewAttribute id="REQ_CREATE_CREATED_ON" aggregationType="max"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="DEALER_PORTAL_REQUEST_EVENTS_LOG">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_NO" source="EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_CODE" source="EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_CREATED_ON" source="CREATED_ON"/>
+    </input>
+    <filter>int(&quot;REQ_CREATE_EVENT_CODE&quot;)=1</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="REQ_INV" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="REQ_INV_EVENT_NO" aggregationType="max"/>
+      <viewAttribute id="REQ_INV_EVENT_CODE"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="REQ_INV_CREATED_ON" aggregationType="max"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="REQ_INV$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_NO" source="EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_CODE" source="EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_CREATED_ON" source="CREATED_ON"/>
+    </input>
+    <filter>int(&quot;REQ_INV_EVENT_CODE&quot;)=2</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="FORM_SUB" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="FORM_SUB_EVENT_NO" aggregationType="max"/>
+      <viewAttribute id="FORM_SUB_EVENT_CODE"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="FORM_SUB_TIMESTAMP" aggregationType="max"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="FORM_SUB$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_NO" source="EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_CODE" source="EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_TIMESTAMP" source="CREATED_ON"/>
+    </input>
+    <filter>int(&quot;FORM_SUB_EVENT_CODE&quot;)=4</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="FINAL_APPR" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="FINAL_APPR_EVENT_NO" aggregationType="max"/>
+      <viewAttribute id="FINAL_APPR_EVENT_CODE"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="FINAL_APPR_CREATED_ON" aggregationType="max"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="FINAL_APPR$$$$DEALER_PORTAL_REQUEST_EVENTS_LOG$$">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_EVENT_NO" source="EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_EVENT_CODE" source="EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_CREATED_ON" source="CREATED_ON"/>
+    </input>
+    <filter>int(&quot;FINAL_APPR_EVENT_CODE&quot;)=9</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="REQ_INV_EVENT_NO"/>
+      <viewAttribute id="REQ_INV_EVENT_CODE"/>
+      <viewAttribute id="REQ_INV_CREATED_ON"/>
+      <viewAttribute id="REQ_CREATE_EVENT_NO"/>
+      <viewAttribute id="REQ_CREATE_EVENT_CODE"/>
+      <viewAttribute id="REQ_CREATE_CREATED_ON"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute hidden="true" id="JOIN$REQUEST_NO$REQUEST_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+  
+    <input node="REQ_CREATE">
+  
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_NO" source="REQ_CREATE_EVENT_NO"/>
+  
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_CODE" source="REQ_CREATE_EVENT_CODE"/>
+  
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_CREATED_ON" source="REQ_CREATE_CREATED_ON"/>
+  
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+  
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+  
+    </input>
+    <input node="REQ_INV">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_NO" source="REQ_INV_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_CODE" source="REQ_INV_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_CREATED_ON" source="REQ_INV_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <joinAttribute name="JOIN$REQUEST_NO$REQUEST_NO"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="CN_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="FORM_SUB_EVENT_NO"/>
+      <viewAttribute id="FORM_SUB_EVENT_CODE"/>
+      <viewAttribute id="REQ_INV_EVENT_NO"/>
+      <viewAttribute id="REQ_INV_EVENT_CODE"/>
+      <viewAttribute id="REQ_INV_CREATED_ON"/>
+      <viewAttribute id="REQ_CREATE_EVENT_NO"/>
+      <viewAttribute id="REQ_CREATE_EVENT_CODE"/>
+      <viewAttribute id="REQ_CREATE_CREATED_ON"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="FORM_SUB_TIMESTAMP"/>
+      <viewAttribute hidden="true" id="JOIN$REQUEST_NO$REQUEST_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Join_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_NO" source="REQ_INV_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_CODE" source="REQ_INV_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_CREATED_ON" source="REQ_INV_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_NO" source="REQ_CREATE_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_CODE" source="REQ_CREATE_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_CREATED_ON" source="REQ_CREATE_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <input node="FORM_SUB">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_NO" source="FORM_SUB_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_CODE" source="FORM_SUB_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_TIMESTAMP" source="FORM_SUB_TIMESTAMP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <joinAttribute name="JOIN$REQUEST_NO$REQUEST_NO"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_N" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="FINAL_APPR_EVENT_NO"/>
+      <viewAttribute id="FINAL_APPR_EVENT_CODE"/>
+      <viewAttribute id="FINAL_APPR_CREATED_ON"/>
+      <viewAttribute id="FORM_SUB_EVENT_NO"/>
+      <viewAttribute id="FORM_SUB_EVENT_CODE"/>
+      <viewAttribute id="REQ_INV_EVENT_NO"/>
+      <viewAttribute id="REQ_INV_EVENT_CODE"/>
+      <viewAttribute id="REQ_INV_CREATED_ON"/>
+      <viewAttribute id="REQ_CREATE_EVENT_NO"/>
+      <viewAttribute id="REQ_CREATE_EVENT_CODE"/>
+      <viewAttribute id="REQ_CREATE_CREATED_ON"/>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="FORM_SUB_TIMESTAMP"/>
+      <viewAttribute hidden="true" id="JOIN$REQUEST_NO$REQUEST_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CREATE_INV_TAT" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;REQ_CREATE_CREATED_ON&quot;,&quot;REQ_INV_CREATED_ON&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="INV_FS_TAT" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;REQ_INV_CREATED_ON&quot;,&quot;FORM_SUB_TIMESTAMP&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="FS_FA_TAT" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;FORM_SUB_TIMESTAMP&quot;,&quot;FINAL_APPR_CREATED_ON&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CREATE_INV_TAT_MIN" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>(SECONDS_BETWEEN(&quot;REQ_CREATE_CREATED_ON&quot;,&quot;REQ_INV_CREATED_ON&quot;))/60</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="INV_FS_TAT_MIN" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;REQ_INV_CREATED_ON&quot;,&quot;FORM_SUB_TIMESTAMP&quot;)/60</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="FS_FA_TAT_MIN" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;FORM_SUB_TIMESTAMP&quot;,&quot;FINAL_APPR_CREATED_ON&quot;)/60</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CREATE_INV_TAT_HRS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>(SECONDS_BETWEEN(&quot;REQ_CREATE_CREATED_ON&quot;,&quot;REQ_INV_CREATED_ON&quot;))/3600</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="INV_FS_TAT_HRS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;REQ_INV_CREATED_ON&quot;,&quot;FORM_SUB_TIMESTAMP&quot;)/3600</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="FS_FA_TAT_HRS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>SECONDS_BETWEEN(&quot;FORM_SUB_TIMESTAMP&quot;,&quot;FINAL_APPR_CREATED_ON&quot;)/3600</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="CREATE_INV_TAT_DAYS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>DAYS_BETWEEN(&quot;REQ_CREATE_CREATED_ON&quot;,&quot;REQ_INV_CREATED_ON&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="INV_FS_TAT_DAYS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>DAYS_BETWEEN(&quot;REQ_INV_CREATED_ON&quot;,&quot;FORM_SUB_TIMESTAMP&quot;)</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="FS_FA_TAT_DAYS" datatype="INTEGER" expressionLanguage="SQL">
+        <formula>DAYS_BETWEEN(&quot;FORM_SUB_TIMESTAMP&quot;,&quot;FINAL_APPR_CREATED_ON&quot;)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Join_3">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_NO" source="FORM_SUB_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_EVENT_CODE" source="FORM_SUB_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_NO" source="REQ_INV_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_EVENT_CODE" source="REQ_INV_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_INV_CREATED_ON" source="REQ_INV_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_NO" source="REQ_CREATE_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_EVENT_CODE" source="REQ_CREATE_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQ_CREATE_CREATED_ON" source="REQ_CREATE_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FORM_SUB_TIMESTAMP" source="FORM_SUB_TIMESTAMP"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <input node="FINAL_APPR">
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_EVENT_NO" source="FINAL_APPR_EVENT_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_EVENT_CODE" source="FINAL_APPR_EVENT_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FINAL_APPR_CREATED_ON" source="FINAL_APPR_CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <joinAttribute name="JOIN$REQUEST_NO$REQUEST_NO"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_2">
+  <attributes>
+    <attribute id="FINAL_APPR_EVENT_NO" order="1" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FINAL_APPR_EVENT_NO"/>
+      <keyMapping columnObjectName="Join_2" columnName="FINAL_APPR_EVENT_NO"/>
+    </attribute>
+    <attribute id="FINAL_APPR_EVENT_CODE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FINAL_APPR_EVENT_CODE"/>
+      <keyMapping columnObjectName="Join_2" columnName="FINAL_APPR_EVENT_CODE"/>
+    </attribute>
+    <attribute id="FINAL_APPR_CREATED_ON" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FINAL_APPR_CREATED_ON"/>
+      <keyMapping columnObjectName="Join_2" columnName="FINAL_APPR_CREATED_ON"/>
+    </attribute>
+    <attribute id="FORM_SUB_EVENT_NO" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FORM_SUB_EVENT_NO"/>
+      <keyMapping columnObjectName="Join_2" columnName="FORM_SUB_EVENT_NO"/>
+    </attribute>
+    <attribute id="FORM_SUB_EVENT_CODE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FORM_SUB_EVENT_CODE"/>
+      <keyMapping columnObjectName="Join_2" columnName="FORM_SUB_EVENT_CODE"/>
+    </attribute>
+    <attribute id="REQ_INV_EVENT_NO" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_INV_EVENT_NO"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_INV_EVENT_NO"/>
+    </attribute>
+    <attribute id="REQ_INV_EVENT_CODE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_INV_EVENT_CODE"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_INV_EVENT_CODE"/>
+    </attribute>
+    <attribute id="REQ_INV_CREATED_ON" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_INV_CREATED_ON"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_INV_CREATED_ON"/>
+    </attribute>
+    <attribute id="REQ_CREATE_EVENT_NO" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_CREATE_EVENT_NO"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_CREATE_EVENT_NO"/>
+    </attribute>
+    <attribute id="REQ_CREATE_EVENT_CODE" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_CREATE_EVENT_CODE"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_CREATE_EVENT_CODE"/>
+    </attribute>
+    <attribute id="REQ_CREATE_CREATED_ON" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQ_CREATE_CREATED_ON"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQ_CREATE_CREATED_ON"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_DAYS" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_DAYS"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_DAYS" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_DAYS"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_HRS" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_HRS"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_DAYS" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_DAYS"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_DAYS"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_HRS" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_HRS"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_HRS" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_HRS"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_HRS"/>
+    </attribute>
+    <attribute id="FS_FA_TAT_MIN" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT_MIN"/>
+    </attribute>
+    <attribute id="INV_FS_TAT_MIN" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT_MIN"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT_MIN" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT_MIN"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT_MIN"/>
+    </attribute>
+    <attribute id="FS_FA_TAT" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FS_FA_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="FS_FA_TAT"/>
+    </attribute>
+    <attribute id="INV_FS_TAT" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="INV_FS_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="INV_FS_TAT"/>
+    </attribute>
+    <attribute id="CREATE_INV_TAT" order="23" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATE_INV_TAT"/>
+      <keyMapping columnObjectName="Join_2" columnName="CREATE_INV_TAT"/>
+    </attribute>
+    <attribute id="REQUEST_NO" order="24" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <keyMapping columnObjectName="Join_2" columnName="REQUEST_NO"/>
+    </attribute>
+  
+    <attribute id="FORM_SUB_TIMESTAMP" order="25" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FORM_SUB_TIMESTAMP"/>
+  
+      <keyMapping columnObjectName="Join_2" columnName="FORM_SUB_TIMESTAMP"/>
+  
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/></logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="422" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="REQ_CREATE" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="696"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="REQ_INV" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="302" y="696"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="FORM_SUB" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="384" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="FINAL_APPR" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="489" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="118" y="536"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="REQ_CREATE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="16" y="16"/>
+      <rectangleSize width="240"/>
+    </shape>
+    <shape modelObjectName="REQ_INV" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="16"/>
+      <rectangleSize width="214"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="145" y="376"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape modelObjectName="Join_1" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="16" y="16"/>
+      <rectangleSize width="240"/>
+    </shape>
+    <shape modelObjectName="FORM_SUB" modelObjectNameSpace="Join_3" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="32"/>
+      <rectangleSize width="227"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="422" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Join_3" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="16" y="16"/>
+      <rectangleSize width="240"/>
+    </shape>
+    <shape modelObjectName="FINAL_APPR" modelObjectNameSpace="Join_2" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="64"/>
+      <rectangleSize width="233"/>
+    </shape></shapes>
+</layout>
+</Calculation:scenario>

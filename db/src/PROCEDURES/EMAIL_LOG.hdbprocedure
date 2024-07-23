@@ -1,0 +1,81 @@
+PROCEDURE "EMAIL_LOG"(
+    IN ACT_TYPE VARCHAR(10),
+    IN ST_EMAIL_LOG "DEALER_PORTAL_IDEAL_EMAIL_LOG",
+    OUT OUT_SUCCESS NVARCHAR(100)
+)
+LANGUAGE SQLSCRIPT 
+SQL SECURITY INVOKER 
+AS 
+BEGIN
+    DECLARE LV_CURRENT_DATE DATE;
+    DECLARE LV_CURRENT_TIME TIMESTAMP;
+    DECLARE lv_logid NVARCHAR(36);
+    DECLARE LV_UUID NVARCHAR(36);
+    DECLARE lv_status INTEGER;
+    DECLARE lv_status_dsc NVARCHAR(50);
+    DECLARE lv_log NVARCHAR(5000);
+
+    SELECT CURRENT_DATE INTO LV_CURRENT_DATE
+    FROM DUMMY;
+    SELECT CURRENT_TIMESTAMP INTO LV_CURRENT_TIME
+    FROM DUMMY;
+    SELECT SYSUUID INTO LV_UUID
+    FROM DUMMY;
+
+    IF (:ACT_TYPE = 'CREATE') THEN
+    INSERT INTO "DEALER_PORTAL_IDEAL_EMAIL_LOG"(
+        "LOG_ID",
+        "STATUS",
+        "STATUS_DSC",
+        "LOG",
+        "CREATED_ON",
+        "CREATED_DATE",
+        "USER_ID",
+        "TO_EMAIL",
+        "CC_EMAIL",
+        "SUBJECT",
+        "BODY",
+        "TYPE"
+      )
+    SELECT 
+    :LV_UUID,
+      "STATUS",
+      "STATUS_DSC",
+      "LOG",
+      :LV_CURRENT_TIME,
+      :LV_CURRENT_DATE,
+      "USER_ID",
+      "TO_EMAIL",
+      "CC_EMAIL",
+      "SUBJECT",
+      "BODY",
+      "TYPE"
+    FROM :ST_EMAIL_LOG ; 
+    
+    COMMIT;
+    OUT_SUCCESS := 'X';
+    END IF;
+    
+    
+    IF (:ACT_TYPE = 'UPDATE') THEN
+    SELECT "LOG_ID",
+      "STATUS",
+      "STATUS_DSC",
+      "LOG" INTO lv_logid,
+      lv_status,
+      lv_status_dsc,
+      lv_log
+    FROM :ST_EMAIL_LOG;
+    UPDATE "DEALER_PORTAL_IDEAL_EMAIL_LOG"
+    SET "STATUS" = :lv_status,
+      "STATUS_DSC" = :lv_status_dsc,
+      "LOG" = :lv_log,
+      "CREATED_ON" = :LV_CURRENT_TIME,
+      "CREATED_DATE" = :LV_CURRENT_DATE
+    WHERE "LOG_ID" = :lv_logid;
+    
+    COMMIT;
+    OUT_SUCCESS := 'X';
+    END IF;
+
+END

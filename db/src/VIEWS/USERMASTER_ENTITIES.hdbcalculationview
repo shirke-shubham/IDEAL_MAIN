@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="USERMASTER_ENTITIES" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="USERMASTER_ENTITIES.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_MASTER_IDEAL_USERS">
+    <resourceUri>DEALER_PORTAL_MASTER_IDEAL_USERS</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_MASTER_USER_ENTITY_CODES">
+    <resourceUri>DEALER_PORTAL_MASTER_USER_ENTITY_CODES</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="SR_NO"/>
+      <viewAttribute id="USER_ID"/>
+      <viewAttribute id="USER_ROLE"/>
+      <viewAttribute id="USER_NAME"/>
+      <viewAttribute id="EMAIL"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="EMP_NO"/>
+      <viewAttribute id="CREATED_ON"/>
+      <viewAttribute id="UPDATED_ON"/>
+      <viewAttribute id="ACTIVE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_MASTER_IDEAL_USERS"/>
+    <filter>&quot;ACTIVE&quot; = 'X' </filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="USER_ID"/>
+      <viewAttribute id="USER_ROLE"/>
+      <viewAttribute id="ENTITY_CODE"/>
+      <viewAttribute id="EMAIL"/>
+      <viewAttribute id="ENTITY_DESC"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_MASTER_USER_ENTITY_CODES"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="SR_NO"/>
+      <viewAttribute id="USER_ID"/>
+      <viewAttribute id="USER_ROLE"/>
+      <viewAttribute id="USER_NAME"/>
+      <viewAttribute id="EMAIL"/>
+      <viewAttribute id="COMPANY_CODE"/>
+      <viewAttribute id="EMP_NO"/>
+      <viewAttribute id="CREATED_ON"/>
+      <viewAttribute id="UPDATED_ON"/>
+      <viewAttribute id="ACTIVE"/>
+      <viewAttribute id="USER_ID_1"/>
+      <viewAttribute id="USER_ROLE_1"/>
+      <viewAttribute id="ENTITY_CODE"/>
+      <viewAttribute id="EMAIL_1"/>
+      <viewAttribute id="ENTITY_DESC"/>
+      <viewAttribute hidden="true" id="JOIN$USER_ID$USER_ID"/>
+      <viewAttribute hidden="true" id="JOIN$EMAIL$EMAIL"/>
+      <viewAttribute hidden="true" id="JOIN$USER_ROLE$USER_ROLE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SR_NO" source="SR_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID" source="USER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="USER_ROLE" source="USER_ROLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="USER_NAME" source="USER_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMAIL" source="EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMPANY_CODE" source="COMPANY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMP_NO" source="EMP_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UPDATED_ON" source="UPDATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ACTIVE" source="ACTIVE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$USER_ID$USER_ID" source="USER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EMAIL$EMAIL" source="EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$USER_ROLE$USER_ROLE" source="USER_ROLE"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="USER_ID_1" source="USER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="USER_ROLE_1" source="USER_ROLE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENTITY_CODE" source="ENTITY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMAIL_1" source="EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENTITY_DESC" source="ENTITY_DESC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$USER_ID$USER_ID" source="USER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$EMAIL$EMAIL" source="EMAIL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$USER_ROLE$USER_ROLE" source="USER_ROLE"/>
+    </input>
+    <joinAttribute name="JOIN$USER_ID$USER_ID"/>
+    <joinAttribute name="JOIN$EMAIL$EMAIL"/>
+    <joinAttribute name="JOIN$USER_ROLE$USER_ROLE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="USER_NAME" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="USER_NAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="USER_NAME"/>
+    </attribute>
+    <attribute id="EMAIL" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EMAIL"/>
+      <keyMapping columnObjectName="Join_1" columnName="EMAIL"/>
+    </attribute>
+    <attribute id="COMPANY_CODE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COMPANY_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="COMPANY_CODE"/>
+    </attribute>
+    <attribute id="CREATED_ON" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATED_ON"/>
+      <keyMapping columnObjectName="Join_1" columnName="CREATED_ON"/>
+    </attribute>
+    <attribute id="ACTIVE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ACTIVE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ACTIVE"/>
+    </attribute>
+    <attribute id="ENTITY_CODE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENTITY_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ENTITY_CODE"/>
+    </attribute>
+    <attribute id="ENTITY_DESC" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENTITY_DESC"/>
+      <keyMapping columnObjectName="Join_1" columnName="ENTITY_DESC"/>
+    </attribute>
+    <attribute id="USER_ID" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="USER_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="USER_ID"/>
+    </attribute>
+    <attribute id="USER_ROLE" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="USER_ROLE"/>
+      <keyMapping columnObjectName="Join_1" columnName="USER_ROLE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-89" y="260"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="284" y="260"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="193"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="178"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

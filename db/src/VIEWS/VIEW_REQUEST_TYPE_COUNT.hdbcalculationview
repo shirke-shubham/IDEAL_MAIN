@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="VIEW_REQUEST_TYPE_COUNT" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="VIEW_REQUEST_TYPE_COUNT.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_MASTER_REQUEST_TYPE">
+    <resourceUri>DEALER_PORTAL_MASTER_REQUEST_TYPE</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_REQUEST_INFO">
+    <resourceUri>DEALER_PORTAL_REQUEST_INFO</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="CODE" aggregationType="sum"/>
+      <viewAttribute id="DESCRIPTION"/>
+      <viewAttribute id="SUPPLIER_TYPE"/>
+      <viewAttribute id="REQUEST_NO" aggregationType="sum"/>
+      <viewAttribute id="REQUEST_TYPE" aggregationType="sum"/>
+      <viewAttribute hidden="true" id="JOIN$CODE$REQUEST_TYPE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_MASTER_REQUEST_TYPE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CODE" source="CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESCRIPTION" source="DESCRIPTION"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SUPPLIER_TYPE" source="SUPPLIER_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CODE$REQUEST_TYPE" source="CODE"/>
+    </input>
+    <input node="DEALER_PORTAL_REQUEST_INFO">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TYPE" source="REQUEST_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CODE$REQUEST_TYPE" source="REQUEST_TYPE"/>
+    </input>
+    <joinAttribute name="JOIN$CODE$REQUEST_TYPE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="CODE" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="CODE"/>
+    </attribute>
+    <attribute id="DESCRIPTION" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESCRIPTION"/>
+      <keyMapping columnObjectName="Join_1" columnName="DESCRIPTION"/>
+    </attribute>
+    <attribute id="REQUEST_TYPE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_TYPE"/>
+      <keyMapping columnObjectName="Join_1" columnName="REQUEST_TYPE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="REQ_TYPE_COUNT" order="3" aggregationType="count" measureType="simple">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <measureMapping columnObjectName="Join_1" columnName="REQUEST_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure></baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="209"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_MASTER_REQUEST_TYPE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="328"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_REQUEST_INFO" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="268"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

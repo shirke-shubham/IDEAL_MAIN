@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="REQ_TURNAROUND" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="REQ_TURNAROUND.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="VIEW_TURN_AROUND_TIME">
+    <resourceUri>VIEW_TURN_AROUND_TIME</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="CREATE_INV_TAT"/>
+      <viewAttribute id="INV_FS_TAT"/>
+      <viewAttribute id="FS_FA_TAT"/>
+      <viewAttribute id="CREATE_INV_TAT_MIN"/>
+      <viewAttribute id="INV_FS_TAT_MIN"/>
+      <viewAttribute id="FS_FA_TAT_MIN"/>
+      <viewAttribute id="CREATE_INV_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_HRS"/>
+      <viewAttribute id="CREATE_INV_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_HRS"/>
+      <viewAttribute id="INV_FS_TAT_DAYS"/>
+      <viewAttribute id="FS_FA_TAT_DAYS"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="VIEW_TURN_AROUND_TIME"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes/>
+  <calculatedAttributes>
+    <calculatedAttribute id="UNIT" order="13" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="50">
+        <formula>'Time'</formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures>
+    <measure id="CREATE_INV_TAT" order="1" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="CREATE_INV_TAT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="CREATE_INV_TAT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="INV_FS_TAT" order="2" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="INV_FS_TAT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="INV_FS_TAT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="FS_FA_TAT" order="3" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="FS_FA_TAT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="FS_FA_TAT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="CREATE_INV_TAT_MIN" order="4" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="CREATE_INV_TAT_MIN"/>
+      <measureMapping columnObjectName="Projection_1" columnName="CREATE_INV_TAT_MIN"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="INV_FS_TAT_MIN" order="5" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="INV_FS_TAT_MIN"/>
+      <measureMapping columnObjectName="Projection_1" columnName="INV_FS_TAT_MIN"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="FS_FA_TAT_MIN" order="6" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="FS_FA_TAT_MIN"/>
+      <measureMapping columnObjectName="Projection_1" columnName="FS_FA_TAT_MIN"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="CREATE_INV_TAT_HRS" order="7" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="CREATE_INV_TAT_HRS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="CREATE_INV_TAT_HRS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="INV_FS_TAT_HRS" order="8" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="INV_FS_TAT_HRS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="INV_FS_TAT_HRS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="CREATE_INV_TAT_DAYS" order="9" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="CREATE_INV_TAT_DAYS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="CREATE_INV_TAT_DAYS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="FS_FA_TAT_HRS" order="10" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="FS_FA_TAT_HRS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="FS_FA_TAT_HRS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="INV_FS_TAT_DAYS" order="11" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="INV_FS_TAT_DAYS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="INV_FS_TAT_DAYS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="FS_FA_TAT_DAYS" order="12" aggregationType="avg" measureType="simple">
+      <descriptions defaultDescription="FS_FA_TAT_DAYS"/>
+      <measureMapping columnObjectName="Projection_1" columnName="FS_FA_TAT_DAYS"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="216"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

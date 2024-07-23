@@ -1,0 +1,112 @@
+PROCEDURE "RGA_CREATE" (
+    
+    IN IN_ACTION NVARCHAR(30),
+    IN IN_APPTYPE NVARCHAR(30),
+    IN IN_APPROVER_LEVEL INTEGER,
+    IN IN_APPROVER_ROLE NVARCHAR(50),
+    IN ST_RGA_HEADER "ST_RGA_HEADER",
+    IN ST_RGA_ITEMS "ST_RGA_ITEMS",
+    IN ST_RGA_EVENT_LOGS "ST_RGA_EVENT_LOGS",
+    OUT OUT_SUCCESS NVARCHAR(100)
+) 
+  LANGUAGE SQLSCRIPT 
+  SQL SECURITY INVOKER 
+  --DEFAULT SCHEMA <default_schema_name>
+  --  READS SQL DATA
+  AS 
+BEGIN 
+
+   DECLARE LV_RGA_NO BIGINT;
+   DECLARE LV_CREATION_DATE TIMESTAMP; 
+   DECLARE LV_REMARK NVARCHAR(100);
+   DECLARE LV_EVENT_NO INTEGER;
+   DECLARE LV_EVENT_CODE INTEGER;
+   DECLARE LV_COMMENT NVARCHAR(100);
+   DECLARE LV_RGA_ITEM_NO BIGINT;  
+  /*************************************
+  Write your procedure logic
+  *************************************/
+  SELECT "RGA_NO".NEXTVAL INTO LV_RGA_NO FROM DUMMY;
+  SELECT CURRENT_TIMESTAMP INTO LV_CREATION_DATE FROM DUMMY;
+
+  INSERT INTO "DEALER_PORTAL_RGA_HEADER" (
+
+    "RGA_NO" ,            "DISTRIBUTOR_ID", "DISTRIBUTOR_NAME",
+    "DISTRIBUTOR_REASON", "STATUS",
+    "APPROVER_LEVEL" ,    "APPROVER_ROLE",     
+    "BU_CODE" ,           "SAP_RETURN_CODE",
+    "COMMENT",            "CREATED_ON"  
+     
+    )
+    SELECT 
+    :LV_RGA_NO ,          "DISTRIBUTOR_ID", "DISTRIBUTOR_NAME",   
+    "DISTRIBUTOR_REASON", 1,
+    :IN_APPROVER_LEVEL ,  :IN_APPROVER_ROLE,     
+    "BU_CODE",            "SAP_RETURN_CODE",
+    "COMMENT",            :LV_CREATION_DATE  
+    FROM :ST_RGA_HEADER;
+    COMMIT;
+
+  -- SELECT MAX("RGA_ITEM_NO") INTO LV_RGA_ITEM_NO
+  -- FROM "DEALER_PORTAL_RGA_ITEMS"
+  -- WHERE "RGA_NO" = :LV_RGA_NO;
+  -- LV_RGA_ITEM_NO = LV_RGA_ITEM_NO + 1;
+
+  -- IF (:LV_RGA_ITEM_NO = NULL OR LENGTH(:LV_RGA_ITEM_NO) < 1) THEN
+  --   LV_RGA_ITEM_NO := 1;
+  -- END IF;
+    -- LV_RGA_ITEM_NO :=1;    
+     
+    INSERT INTO "DEALER_PORTAL_RGA_ITEMS" (
+
+    "RGA_NO" ,             "RGA_ITEM_NO",   
+    "ITEM_CODE",           "ITEM_DESCRIPTION",
+    "UNIT_OF_MEASURE" ,    "BATCH",
+    "EXPIRY_DATE" ,        "SALEABLE",
+    "INVOICE_NO",          "INVOICE_DATE",     
+    "INVOICE_QUANTITY",    "PRICE",
+    "EXTENDED",            "RETURN_QUANTITY",
+    "ACCEPTED_QUANTITY",   "ACCEPTED_PRICE"
+   
+  )
+    SELECT 
+    :LV_RGA_NO ,           "RGA_ITEM_NO",   
+    "ITEM_CODE",           "ITEM_DESCRIPTION",
+    "UNIT_OF_MEASURE" ,    "BATCH",
+    "EXPIRY_DATE" ,        "SALEABLE",
+    "INVOICE_NO",          "INVOICE_DATE",     
+    "INVOICE_QUANTITY",    "PRICE",
+    "EXTENDED",            "RETURN_QUANTITY",
+    "ACCEPTED_QUANTITY",   "ACCEPTED_PRICE"
+    FROM :ST_RGA_ITEMS;  
+    COMMIT;
+
+   LV_EVENT_CODE := 1;
+   LV_EVENT_NO := 1;
+   LV_REMARK := 'Created by Distributor';
+  --  LV_COMMENT :='Damaged';
+
+INSERT INTO "DEALER_PORTAL_RGA_EVENT_LOGS" (
+
+    "RGA_NO" ,             "EVENT_NO" ,   
+    "EVENT_CODE",          "USER_ID",
+    "USER_NAME" ,          "USER_ROLE",     
+    "REMARK",              "COMMENT",
+    "CREATION_DATE"
+   
+  )
+    SELECT 
+    :LV_RGA_NO ,           :LV_EVENT_NO,   
+    :LV_EVENT_CODE,        "USER_ID",
+    "USER_NAME" ,          "USER_ROLE",        
+    :LV_REMARK,            "COMMENT",             
+    :LV_CREATION_DATE
+    FROM :ST_RGA_EVENT_LOGS;
+    
+    COMMIT;
+    -- OUT_SUCCESS := 'RGA Request No ' || :LV_RGA_NO;  
+
+       OUT_SUCCESS := 'RGA Request No ' || :LV_RGA_NO || ' has been created';
+    -- 'RGA Request Created Successfully :' || 
+
+END;

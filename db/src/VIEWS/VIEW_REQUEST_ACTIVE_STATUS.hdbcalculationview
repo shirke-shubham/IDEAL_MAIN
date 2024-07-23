@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="VIEW_REQUEST_ACTIVE_STATUS" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="VIEW_REQUEST_ACTIVE_STATUS.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_REQUEST_INFO">
+    <resourceUri>DEALER_PORTAL_REQUEST_INFO</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_REQUEST_ACTIVE_STATUS">
+    <resourceUri>DEALER_PORTAL_REQUEST_ACTIVE_STATUS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="SAP_DIST_CODE"/>
+      <viewAttribute id="IDEAL_DIST_CODE"/>
+      <viewAttribute id="STATUS"/>
+      <viewAttribute id="REGISTERED_ID"/>
+      <viewAttribute id="ENTITY_CODE"/>
+      <viewAttribute id="REQUEST_TYPE"/>
+      <viewAttribute id="CREATION_TYPE"/>
+      <viewAttribute id="DIST_NAME1"/>
+      <viewAttribute id="REQUESTER_ID"/>
+      <viewAttribute id="CREATED_ON"/>
+      <viewAttribute id="BP_TYPE_CODE"/>
+      <viewAttribute id="BP_TYPE_DESC"/>
+      <viewAttribute id="BUYER_ASSIGN_CHECK"/>
+      <viewAttribute id="COMMENT"/>
+      <viewAttribute id="LEGACY_ID"/>
+      <viewAttribute id="DIST_CODE"/>
+      <viewAttribute id="NDA_TYPE"/>
+      <viewAttribute id="REMINDER_COUNT"/>
+    
+      <viewAttribute id="MOBILE_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_REQUEST_INFO"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_2">
+    <viewAttributes>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="ACTIVE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_REQUEST_ACTIVE_STATUS"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="C1_1" joinType="leftOuter">
+    <viewAttributes>
+      <viewAttribute id="REQUEST_NO"/>
+      <viewAttribute id="SAP_DIST_CODE"/>
+      <viewAttribute id="IDEAL_DIST_CODE"/>
+      <viewAttribute id="STATUS"/>
+      <viewAttribute id="REGISTERED_ID"/>
+      <viewAttribute id="ENTITY_CODE"/>
+      <viewAttribute id="REQUEST_TYPE"/>
+      <viewAttribute id="CREATION_TYPE"/>
+      <viewAttribute id="DIST_NAME1"/>
+      <viewAttribute id="REQUESTER_ID"/>
+      <viewAttribute id="CREATED_ON"/>
+      <viewAttribute id="BP_TYPE_CODE"/>
+      <viewAttribute id="BP_TYPE_DESC"/>
+      <viewAttribute id="BUYER_ASSIGN_CHECK"/>
+      <viewAttribute id="COMMENT"/>
+      <viewAttribute id="LEGACY_ID"/>
+      <viewAttribute id="DIST_CODE"/>
+      <viewAttribute id="NDA_TYPE"/>
+      <viewAttribute id="REMINDER_COUNT"/>
+      <viewAttribute id="REQUEST_NO_1"/>
+      <viewAttribute id="ACTIVE"/>
+      <viewAttribute id="MOBILE_NO"/>
+      <viewAttribute hidden="true" id="JOIN$REQUEST_NO$REQUEST_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="Projection_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SAP_DIST_CODE" source="SAP_DIST_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IDEAL_DIST_CODE" source="IDEAL_DIST_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="STATUS" source="STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REGISTERED_ID" source="REGISTERED_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENTITY_CODE" source="ENTITY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_TYPE" source="REQUEST_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATION_TYPE" source="CREATION_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DIST_NAME1" source="DIST_NAME1"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUESTER_ID" source="REQUESTER_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CREATED_ON" source="CREATED_ON"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BP_TYPE_CODE" source="BP_TYPE_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BP_TYPE_DESC" source="BP_TYPE_DESC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BUYER_ASSIGN_CHECK" source="BUYER_ASSIGN_CHECK"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COMMENT" source="COMMENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="LEGACY_ID" source="LEGACY_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DIST_CODE" source="DIST_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NDA_TYPE" source="NDA_TYPE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="REMINDER_COUNT" source="REMINDER_COUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MOBILE_NO" source="MOBILE_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <input node="Projection_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO_1" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ACTIVE" source="ACTIVE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$REQUEST_NO$REQUEST_NO" source="REQUEST_NO"/>
+    </input>
+    <joinAttribute name="JOIN$REQUEST_NO$REQUEST_NO"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="REQUEST_NO" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <keyMapping columnObjectName="Join_1" columnName="REQUEST_NO"/>
+    </attribute>
+    <attribute id="SAP_DIST_CODE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SAP_DIST_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="SAP_DIST_CODE"/>
+    </attribute>
+    <attribute id="IDEAL_DIST_CODE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="IDEAL_DIST_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="IDEAL_DIST_CODE"/>
+    </attribute>
+    <attribute id="STATUS" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="STATUS"/>
+      <keyMapping columnObjectName="Join_1" columnName="STATUS"/>
+    </attribute>
+    <attribute id="REGISTERED_ID" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REGISTERED_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="REGISTERED_ID"/>
+    </attribute>
+    <attribute id="ENTITY_CODE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENTITY_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ENTITY_CODE"/>
+    </attribute>
+    <attribute id="REQUEST_TYPE" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_TYPE"/>
+      <keyMapping columnObjectName="Join_1" columnName="REQUEST_TYPE"/>
+    </attribute>
+    <attribute id="CREATION_TYPE" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATION_TYPE"/>
+      <keyMapping columnObjectName="Join_1" columnName="CREATION_TYPE"/>
+    </attribute>
+    <attribute id="DIST_NAME1" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DIST_NAME1"/>
+      <keyMapping columnObjectName="Join_1" columnName="DIST_NAME1"/>
+    </attribute>
+    <attribute id="REQUESTER_ID" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUESTER_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="REQUESTER_ID"/>
+    </attribute>
+    <attribute id="CREATED_ON" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CREATED_ON"/>
+      <keyMapping columnObjectName="Join_1" columnName="CREATED_ON"/>
+    </attribute>
+    <attribute id="BP_TYPE_CODE" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BP_TYPE_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="BP_TYPE_CODE"/>
+    </attribute>
+    <attribute id="BP_TYPE_DESC" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BP_TYPE_DESC"/>
+      <keyMapping columnObjectName="Join_1" columnName="BP_TYPE_DESC"/>
+    </attribute>
+    <attribute id="BUYER_ASSIGN_CHECK" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUYER_ASSIGN_CHECK"/>
+      <keyMapping columnObjectName="Join_1" columnName="BUYER_ASSIGN_CHECK"/>
+    </attribute>
+    <attribute id="COMMENT" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COMMENT"/>
+      <keyMapping columnObjectName="Join_1" columnName="COMMENT"/>
+    </attribute>
+    <attribute id="LEGACY_ID" order="16" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="LEGACY_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="LEGACY_ID"/>
+    </attribute>
+    <attribute id="DIST_CODE" order="17" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DIST_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="DIST_CODE"/>
+    </attribute>
+    <attribute id="NDA_TYPE" order="18" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NDA_TYPE"/>
+      <keyMapping columnObjectName="Join_1" columnName="NDA_TYPE"/>
+    </attribute>
+    <attribute id="REMINDER_COUNT" order="19" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REMINDER_COUNT"/>
+      <keyMapping columnObjectName="Join_1" columnName="REMINDER_COUNT"/>
+    </attribute>
+    <attribute id="REQUEST_NO_1" order="20" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <keyMapping columnObjectName="Join_1" columnName="REQUEST_NO_1"/>
+    </attribute>
+    <attribute id="ACTIVE" order="21" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ACTIVE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ACTIVE"/>
+    </attribute>
+  
+    <attribute id="MOBILE_NO" order="22" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MOBILE_NO"/>
+  
+      <keyMapping columnObjectName="Join_1" columnName="MOBILE_NO"/>
+  
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-52" y="293"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="Projection_2" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="231" y="293"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="195"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="136"/>
+    </shape>
+    <shape modelObjectName="Projection_2" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="136"/>
+    </shape></shapes>
+</layout>
+</Calculation:scenario>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="VIEW_REQUEST_DISTRIBUTOR_TYPE" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="VIEW_REQUEST_DISTRIBUTOR_TYPE.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_REQUEST_INFO">
+    <resourceUri>DEALER_PORTAL_REQUEST_INFO</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+<logicalModel id="DEALER_PORTAL_REQUEST_INFO">
+  <attributes>
+    <attribute id="DIST_CODE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DIST_CODE"/>
+      <keyMapping columnObjectName="DEALER_PORTAL_REQUEST_INFO" columnName="DIST_CODE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="REQUEST_NO" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <measureMapping columnObjectName="DEALER_PORTAL_REQUEST_INFO" columnName="REQUEST_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="100" y="105"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

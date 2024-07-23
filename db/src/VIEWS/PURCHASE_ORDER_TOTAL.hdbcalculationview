@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="PURCHASE_ORDER_TOTAL" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="PURCHASE_ORDER_TOTAL.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_PR_HEADER">
+    <resourceUri>DEALER_PORTAL_PR_HEADER</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_PR_ITEMS">
+    <resourceUri>DEALER_PORTAL_PR_ITEMS</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner" filterExpressionLanguage="SQL">
+    <viewAttributes>
+      <viewAttribute id="PR_NO" aggregationType="sum"/>
+      <viewAttribute id="DISTRIBUTOR_ID"/>
+      <viewAttribute id="SHIP_FROM"/>
+      <viewAttribute id="MATERIAL_CODE"/>
+      <viewAttribute id="MATERIAL_DESC"/>
+      <viewAttribute id="IMAGE_URL"/>
+      <viewAttribute id="HSN_CODE"/>
+      <viewAttribute id="QUANTITY" aggregationType="sum"/>
+      <viewAttribute id="TOTAL_AMOUNT"/>
+      <viewAttribute id="TAXES_AMOUNT"/>
+      <viewAttribute id="PR_STATUS"/>
+      <viewAttribute id="NET_AMOUNT"/>
+      <viewAttribute hidden="true" id="JOIN$PR_NO$PR_NO"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="T_AMOUNT" datatype="DECIMAL" length="16" scale="4" expressionLanguage="SQL">
+        <formula>TO_DECIMAL(&quot;TOTAL_AMOUNT&quot;)</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="DEALER_PORTAL_PR_HEADER">
+      <mapping xsi:type="Calculation:AttributeMapping" target="PR_NO" source="PR_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DISTRIBUTOR_ID" source="DISTRIBUTOR_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SHIP_FROM" source="SHIP_FROM"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="PR_STATUS" source="PR_STATUS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PR_NO$PR_NO" source="PR_NO"/>
+    </input>
+    <input node="DEALER_PORTAL_PR_ITEMS">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MATERIAL_CODE" source="MATERIAL_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MATERIAL_DESC" source="MATERIAL_DESC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="IMAGE_URL" source="IMAGE_URL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="HSN_CODE" source="HSN_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TOTAL_AMOUNT" source="TOTAL_AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="TAXES_AMOUNT" source="TAXES_AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NET_AMOUNT" source="NET_AMOUNT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PR_NO$PR_NO" source="PR_NO"/>
+    </input>
+    <filter>&quot;PR_STATUS&quot; = 3</filter>
+    <joinAttribute name="JOIN$PR_NO$PR_NO"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="DISTRIBUTOR_ID" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DISTRIBUTOR_ID"/>
+      <keyMapping columnObjectName="Join_1" columnName="DISTRIBUTOR_ID"/>
+    </attribute>
+    <attribute id="MATERIAL_CODE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MATERIAL_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="MATERIAL_CODE"/>
+    </attribute>
+    <attribute id="MATERIAL_DESC" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MATERIAL_DESC"/>
+      <keyMapping columnObjectName="Join_1" columnName="MATERIAL_DESC"/>
+    </attribute>
+    <attribute id="IMAGE_URL" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="IMAGE_URL"/>
+      <keyMapping columnObjectName="Join_1" columnName="IMAGE_URL"/>
+    </attribute>
+    <attribute id="HSN_CODE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="HSN_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="HSN_CODE"/>
+    </attribute>
+    <attribute id="TAXES_AMOUNT" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="TAXES_AMOUNT"/>
+      <keyMapping columnObjectName="Join_1" columnName="TAXES_AMOUNT"/>
+    </attribute>
+    <attribute id="PR_STATUS" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PR_STATUS"/>
+      <keyMapping columnObjectName="Join_1" columnName="PR_STATUS"/>
+    </attribute>
+    <attribute id="NET_AMOUNT" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NET_AMOUNT"/>
+      <keyMapping columnObjectName="Join_1" columnName="NET_AMOUNT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="PR_NO" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="PR_NO"/>
+      <measureMapping columnObjectName="Join_1" columnName="PR_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="QUANTITY" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="QUANTITY"/>
+      <measureMapping columnObjectName="Join_1" columnName="QUANTITY"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+    <measure id="T_AMOUNT" order="10" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="T_AMOUNT"/>
+      <measureMapping columnObjectName="Join_1" columnName="T_AMOUNT"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="221"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_PR_HEADER" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="249"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_PR_ITEMS" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="235"/>
+    </shape></shapes>
+</layout>
+</Calculation:scenario>

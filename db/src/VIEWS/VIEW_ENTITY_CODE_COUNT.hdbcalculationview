@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="VIEW_ENTITY_CODE_COUNT" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" application="BAS" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="VIEW_ENTITY_CODE_COUNT.hdbcalculationview"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="DEALER_PORTAL_MASTER_ENTITY_CODE">
+    <resourceUri>DEALER_PORTAL_MASTER_ENTITY_CODE</resourceUri>
+  </DataSource>
+  <DataSource id="DEALER_PORTAL_REQUEST_INFO">
+    <resourceUri>DEALER_PORTAL_REQUEST_INFO</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="BUKRS"/>
+      <viewAttribute id="BUTXT"/>
+      <viewAttribute id="REQUEST_NO" aggregationType="sum"/>
+      <viewAttribute id="ENTITY_CODE"/>
+      <viewAttribute hidden="true" id="JOIN$BUKRS$ENTITY_CODE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="DEALER_PORTAL_MASTER_ENTITY_CODE">
+      <mapping xsi:type="Calculation:AttributeMapping" target="BUKRS" source="BUKRS"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="BUTXT" source="BUTXT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$BUKRS$ENTITY_CODE" source="BUKRS"/>
+    </input>
+    <input node="DEALER_PORTAL_REQUEST_INFO">
+      <mapping xsi:type="Calculation:AttributeMapping" target="REQUEST_NO" source="REQUEST_NO"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ENTITY_CODE" source="ENTITY_CODE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$BUKRS$ENTITY_CODE" source="ENTITY_CODE"/>
+    </input>
+    <joinAttribute name="JOIN$BUKRS$ENTITY_CODE"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="BUKRS" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUKRS"/>
+      <keyMapping columnObjectName="Join_1" columnName="BUKRS"/>
+    </attribute>
+    <attribute id="BUTXT" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BUTXT"/>
+      <keyMapping columnObjectName="Join_1" columnName="BUTXT"/>
+    </attribute>
+    <attribute id="ENTITY_CODE" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENTITY_CODE"/>
+      <keyMapping columnObjectName="Join_1" columnName="ENTITY_CODE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="ENTITY_COUNT" order="3" aggregationType="count" measureType="simple">
+      <descriptions defaultDescription="REQUEST_NO"/>
+      <measureMapping columnObjectName="Join_1" columnName="REQUEST_NO"/>
+      <exceptionAggregationMetadata/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="210"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_MASTER_ENTITY_CODE" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="316"/>
+    </shape>
+    <shape modelObjectName="DEALER_PORTAL_REQUEST_INFO" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="268"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>
