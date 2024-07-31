@@ -22,7 +22,7 @@ module.exports = cds.service.impl(async function (req) {
 
             var action = null;
 
-            if (retailerPayment === null || retailerPayment[0].DISTRIBUTOR_ID === null || retailerPayment[0].RETAILER_ID == null || retailerPayment[0].DELIVERY_NO == null || retailerPayment[0].INVOICE_NO == null) {
+                if (retailerPayment === null || retailerPayment[0].DISTRIBUTOR_ID === null || retailerPayment[0].RETAILER_ID == null || retailerPayment[0].DELIVERY_NO == null || retailerPayment[0].INVOICE_NO == null) {
                 throw "Invalid Payload";
             }
 

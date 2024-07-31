@@ -41,6 +41,11 @@ context DEALER_PORTAL {
             DESC : String(50);
     }
 
+    entity PR_STATUS_MASTER {
+        key PR_STATUS : String(10);
+            DESC      : String(50);
+    }
+
     //old tables
     // entity ENTITY_AND_TYPE : cuid,managed{
     //     TYPE : String(10) @readonly;

@@ -19,7 +19,7 @@ module.exports = cds.service.impl(async function (req) {
     var output;
     // BY SHUBHAM
     this.on('rgaProcess', async (req) => {      
-        try {``
+        try {
 
             var { 
                 action,        

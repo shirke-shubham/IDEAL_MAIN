@@ -23,7 +23,8 @@ using {
     DEALER_PORTAL.GRN_STATUS_MASTER,
     DEALER_PORTAL.PAYMENT_ENTRY_STATUS_MASTER,
     DEALER_PORTAL.MASTER_PPR_STATUS,
-    DEALER_PORTAL.MASTER_PPR_EVENT_STATUS
+    DEALER_PORTAL.MASTER_PPR_EVENT_STATUS,
+    DEALER_PORTAL.PR_STATUS_MASTER 
 } from '../db/MASTER_TABLES';
 
 entity IDEAL_ERROR_LOG {
@@ -720,6 +721,8 @@ entity PR_HEADER {
                                 on TO_ITEMS.PR_NO = PR_NO;
         TO_EVENT          : Association to many PR_EVENT_LOG
                                 on TO_EVENT.PR_NO = PR_NO;
+        TO_PR_STATUS      : Association to one DEALER_PORTAL.PR_STATUS_MASTER
+                                on TO_PR_STATUS.PR_STATUS = PR_STATUS;
 
 }
 

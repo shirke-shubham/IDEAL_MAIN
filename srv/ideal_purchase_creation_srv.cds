@@ -23,6 +23,7 @@ service ideal_purchase_creation_srv {
     entity RequestActiveStatus as projection on DEALER_PORTAL.REQUEST_ACTIVE_STATUS;
     entity ViewRequestActiveStatus as projection on VIEW_REQUEST_ACTIVE_STATUS;
     entity MasterApprovalHierarchy as projection on DEALER_PORTAL.MASTER_APPROVAL_HIERARCHY;
+    entity Pr_Status_Master as projection on DEALER_PORTAL.PR_STATUS_MASTER;
 
     type User_Details : {
         USER_ROLE : String(50);

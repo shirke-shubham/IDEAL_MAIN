@@ -376,10 +376,10 @@ module.exports = cds.service.impl(function () {
                 materialGroupCode = array[i].MATERIAL_GROUP;
                 materialCode = array[i].MATERIAL_CODE;
                 stockQty = array[i].QUANTITY;
-                matCode = await SELECT `MATERIAL_STOCK`.from `DEALER_PORTAL_GRN_STOCK` .where `MATERIAL_GROUP=${materialGroupCode} AND MATERIAL_CODE=${materialCode}`;
-                updatedStock = matCode[0].MATERIAL_STOCK - stockQty;
+                // matCode = await SELECT `MATERIAL_STOCK`.from `DEALER_PORTAL_GRN_STOCK` .where `MATERIAL_GROUP=${materialGroupCode} AND MATERIAL_CODE=${materialCode}`;
+                // updatedStock = matCode[0].MATERIAL_STOCK - stockQty;
 
-                await UPDATE`DEALER_PORTAL_GRN_STOCK`.set`MATERIAL_STOCK=${updatedStock}`.where`MATERIAL_GROUP=${materialGroupCode} AND MATERIAL_CODE=${materialCode}`;
+                // await UPDATE`DEALER_PORTAL_GRN_STOCK`.set`MATERIAL_STOCK=${updatedStock}`.where`MATERIAL_GROUP=${materialGroupCode} AND MATERIAL_CODE=${materialCode}`;
 
             }
             var distributorId = req.data.soHeaders[0].DISTRIBUTOR_ID;
@@ -388,7 +388,7 @@ module.exports = cds.service.impl(function () {
             const output = await dbconn.callProcedurePromisified(sp, [distributorId,retailerId,req.data.soHeaders, req.data.soItems]);
             var soNumber = output.outputScalar.OUT_SO_NUMBER;
             if (output.outputScalar.OUT_SUCCESS !== null) {
-                sResponse = output.outputScalar.OUT_SUCCESS;
+                sResponse = output.outputScalar.OUT_SUCCESS;    
                 return sResponse;
             }
             
